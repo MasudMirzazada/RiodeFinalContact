@@ -1,0 +1,96 @@
+﻿@model Product
+@if (Model?.ProductColorSizes?.Count() > 0)
+{
+    for (int i = 0; i < Model.ProductColorSizes.Count(); i++)
+    {
+        <div class="row" style="position: relative; padding: 10px 0; margin: 10px 0; border-bottom: 1px solid #e4e4e4;">
+            <div class="form-group col-lg-3">
+                <label>Select Color</label>
+                <select name="ColorIds[]" class="form-control" asp-items="@new SelectList(ViewBag.Colors, nameof(Color.Id), nameof(Color.Name),Model.ProductColorSizes.ElementAt(i).Color.Id)">
+                </select>
+            </div>
+            <div class="form-group col-lg-3">
+                <label>Size</label>
+                <select name="SizeIds[]" class="form-control" asp-items="@new SelectList(ViewBag.Sizes, nameof(Size.Id), nameof(Size.Name),Model.ProductColorSizes.ElementAt(i).Size.Id)">
+                </select>
+            </div>
+            <div class="form-group col-lg-3">
+                <label>Count</label>
+                <input name="Counts[]" asp-for="@Model.ProductColorSizes.ElementAt(i).StockCount" class="Counts form-control" min="1" placeholder="Enter Count" value="@Model.ProductColorSizes.ElementAt(i).StockCount">
+            </div>
+            @*<div class="text-danger" asp-validation-summary="ModelOnly"></div>*@
+            @if (Model.ProductColorSizes.Count() > 1)
+            {
+                <a href="" class="btn btn-primary removeItem">Remove</a>
+            }
+        </div>
+    }
+}
+else
+{
+    if (Model?.ColorIds?.Count() > 0)
+    {
+        for (int i = 0; i < Model.ColorIds.Count(); i++)
+        {
+            <div class="row" style="position: relative; padding: 10px 0; margin: 10px 0; border-bottom: 1px solid #e4e4e4;">
+                <div class="form-group col-lg-3">
+                    <label>Select Color</label>
+                    <select name="ColorIds[]" class="form-control" asp-items="@new SelectList(ViewBag.Colors, nameof(Color.Id), nameof(Color.Name),Model.ColorIds[i])">
+                    </select>
+                </div>
+                <div class="form-group col-lg-3">
+                    <label>Size</label>
+                    <select name="SizeIds[]" class="form-control" asp-items="@new SelectList(ViewBag.Sizes, nameof(Size.Id), nameof(Size.Name),Model.SizeIds[i])">
+                    </select>
+                </div>
+                <div class="form-group col-lg-3">
+                    <label>Count</label>
+                    <input name="Counts[]" type="number" class="Counts form-control" placeholder="Enter Count" value="@( i < Model?.Counts?.Count() ? Model?.Counts?.ElementAt(i) :0)">
+                    <span id="prodColor" name="prodColor"></span>
+                </div>
+                <a href="" class="btn btn-primary removeItem">Remove</a>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="row" style="position: relative; padding: 10px 0; margin: 10px 0; border-bottom: 1px solid #e4e4e4;">
+            <div class="form-group col-lg-3">
+                <label>Select Color</label>
+                <select name="ColorIds[]" class="form-control" asp-items="@new SelectList(ViewBag.Colors, nameof(Color.Id), nameof(Color.Name))">
+                </select>
+            </div>
+            <div class="form-group col-lg-3">
+                <label>Size</label>
+                <select name="SizeIds[]" class="form-control" asp-items="@new SelectList(ViewBag.Sizes, nameof(Size.Id), nameof(Size.Name))">
+                </select>
+            </div>
+            <div class="form-group col-lg-3">
+                <label>Count</label>
+                <input name="Counts[]" type="number" min="0" class="Counts form-control" placeholder="Enter Count" value="0">
+                <span id="prodColor" name="prodColor"></span>
+            </div>
+            <a href="" class="btn btn-primary removeItem">Remove</a>
+
+        </div>
+    }
+}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($(".inputContaineForadd").children(".row").length < 2) {
+                $(".removeItem").remove();
+            }
+            $(document).on("click", ".removeItem", function (e) {
+                e.preventDefault();
+                $(this).parent().remove();
+
+                if ($(".inputContaineForadd").children(".row").length < 2) {
+                    $(".removeItem").remove();
+                }
+            })
+        })
+
+    </script>

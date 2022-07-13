@@ -1,0 +1,292 @@
+﻿@model Product
+@{
+    ViewBag.Title = Model.Name;
+}
+<!-- Main-body start -->
+<div class="main-body">
+    <div class="page-wrapper">
+        <!-- Page-header start -->
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-lg-8">
+                    <div class="page-header-title">
+                        <div class="d-inline">
+                            <h4>Product detail</h4>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item" style="float: left;">
+                                <a asp-area="manage" asp-controller="dashboard" asp-action="index"> <i class="feather icon-home"></i> </a>
+                            </li>
+                            <li class="breadcrumb-item" style="float: left;">
+                                <a asp-area="manage" asp-controller="product" asp-action="index">Products</a>
+                            </li>
+                            <li class="breadcrumb-item" style="float: left;">
+                                <a href="#!">Product Detail</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page-header end -->
+        <!-- Page body start -->
+        <div class="page-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Product detail page start -->
+                    <div class="card product-detail-page">
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <div class="port_details_all_img row">
+                                        <div class="col-lg-12 m-b-15">
+                                            <div id="big_banner">
+                                                <div class="port_big_img">
+                                                    <img class="img img-fluid"
+                                                         src="~/assets/images/demos/demo23/products/@Model.MainImage"
+                                                         alt="Big_ Details">
+                                                </div>
+                                                <div class="port_big_img">
+                                                    <img class="img img-fluid"
+                                                         src="~/assets/images/demos/demo23/products/@Model.HoverImage"
+                                                         alt="Big_ Details">
+                                                </div>
+                                                @foreach (ProductImage productImage in Model.ProductImages)
+                                                {
+                                                    <div class="port_big_img">
+                                                        <img class="img img-fluid"
+                                                             src="~/assets/images/demos/demo23/products/@productImage.Image"
+                                                             alt="Big_ Details">
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 product-right">
+                                            <div id="small_banner">
+                                                <div>
+                                                    <img class="img img-fluid"
+                                                         src="~/assets/images/demos/demo23/products/@Model.MainImage"
+                                                         alt="small-details">
+                                                </div>
+                                                <div>
+                                                    <img class="img img-fluid"
+                                                         src="~/assets/images/demos/demo23/products/@Model.HoverImage"
+                                                         alt="small-details">
+                                                </div>
+                                                @foreach (ProductImage productImage in Model.ProductImages)
+                                                {
+                                                    <div>
+                                                        <img class="img img-fluid"
+                                                             src="~/assets/images/demos/demo23/products/@productImage.Image"
+                                                             alt="small-details">
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7   product-detail"
+                                     id="product-detail">
+                                    <div class="row">
+                                        <div>
+                                            <div class="col-lg-12">
+                                                <span class="f-right">
+                                                    Availablity : <a href="#!"> @((Model.Availability) ? "In stock" : "Out of stock") </a>
+                                                </span>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <h4 class="pro-desc">@Model.Name</h4>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <span class="txt-muted">
+                                                    Brand: @Model.Brend.Name
+                                                </span>
+                                            </div>
+                                            @*<div class="stars stars-example-css m-t-15 detail-stars col-lg-12">
+                                                    <select id="product-view"
+                                                            class="rating-star" name="rating"
+                                                            autocomplete="off">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                    </select>
+                                                </div>*@
+                                            <div class="col-lg-12">
+                                                <span class="text-primary product-price">
+                                                    <i class="icofont icofont-cur-dollar"></i>@Model.Price
+                                                </span>
+                                                @if (Model.DiscountPrice != null && Model.DiscountPrice > 0)
+                                                {
+                                                    <span class="done-task txt-muted">$@Model.DiscountPrice</span>
+                                                }
+                                                <hr>
+                                                <p>
+                                                    @Model.Description
+                                                </p>
+                                            </div>
+                                            <div class="col-lg-12 col-sm-12 mob-product-btn">
+                                                @if (Model.IsDeleted)
+                                                {
+                                                    <a asp-area="manage" asp-controller="product" asp-action="restore" asp-route-id="@Model.Id" class="btn btn-primary waves-effect waves-light m-r-20">
+                                                        RESTORE
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a asp-area="manage" asp-controller="product" asp-action="delete" asp-route-id="@Model.Id" class="btn btn-danger waves-effect waves-light m-r-20">
+                                                        DELETE
+                                                    </a>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product detail page end -->
+                </div>
+            </div>
+            <!-- Nav tabs start-->
+            @*<div class="card product-detail-page">
+                    <ul class="nav nav-tabs md-tabs tab-timeline" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active f-18 p-b-0" data-toggle="tab"
+                               href="#description" role="tab">Description</a>
+                            <div class="slide"></div>
+                        </li>
+                        <li class="nav-item m-b-0">
+                            <a class="nav-link f-18 p-b-0" data-toggle="tab" href="#review"
+                               role="tab">Review</a>
+                            <div class="slide"></div>
+                        </li>
+                        <li class="nav-item m-b-0">
+                            <a class="nav-link f-18 p-b-0" data-toggle="tab" href="#sizeguide"
+                               role="tab">Sizing Guide</a>
+                            <div class="slide"></div>
+                        </li>
+                        <li class="nav-item m-b-0">
+                            <a class="nav-link f-18 p-b-0" data-toggle="tab" href="#about"
+                               role="tab">About</a>
+                            <div class="slide"></div>
+                        </li>
+                    </ul>
+                </div>*@
+            <!-- Nav tabs start-->
+            <!-- Nav tabs card start-->
+            <!--<div class="card">
+                <div class="card-block">-->
+            <!-- Tab panes -->
+            <!--<div class="tab-content bg-white">
+                        <div class="tab-pane active" id="description" role="tabpanel">
+                            <p>
+                                Lorem Ipsum is simply dummy text of the printing and
+                                typesetting industry. Lorem Ipsum has been the industry's
+                                standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a
+                                type specimen book. It has survived not only five centuries,
+                                but also the leap into electronic typesetting, remaining
+                                essentially unchanged.
+                            </p>
+                            <p>
+                                Lorem Ipsum is simply dummy text of the printing and
+                                typesetting industry. Lorem Ipsum has been the industry's
+                                standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it.
+                            </p>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td class="col-lg-2">Fabric</td>
+                                        <td class="col-lg-10">Midi</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-lg-2">Color</td>
+                                        <td class="col-lg-10">Polyester</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-lg-2">Sleevs</td>
+                                        <td class="col-lg-10">Multi</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-lg-2">Style</td>
+                                        <td class="col-lg-10">Coloured</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-lg-2">Neck</td>
+                                        <td class="col-lg-10">Full</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-lg-2">Wash</td>
+                                        <td class="col-lg-10">Sleevs</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="review" role="tabpanel">
+                            <p>
+                                Lorem Ipsum is simply dummy text of the printing and
+                                typesetting industry. Lorem Ipsum has been the industry's
+                                standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a
+                                type specimen book. It has survived not only five centuries,
+                                but also the leap into electronic typesetting, remaining
+                                essentially unchanged.
+                            </p>
+                            <p>
+                                Lorem Ipsum is simply dummy text of the printing and
+                                typesetting industry. Lorem Ipsum has been the industry's
+                                standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it.
+                            </p>
+                        </div>
+                        <div class="tab-pane" id="sizeguide" role="tabpanel">
+                            <p>
+                                Lorem Ipsum is simply dummy text of the printing and
+                                typesetting industry. Lorem Ipsum has been the industry's
+                                standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a
+                                type specimen book. It has survived not only five centuries,
+                                but also the leap into electronic typesetting, remaining
+                                essentially unchanged.
+                            </p>
+                            <p>
+                                Lorem Ipsum is simply dummy text of the printing and
+                                typesetting industry. Lorem Ipsum has been the industry's
+                                standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it.
+                            </p>
+                        </div>
+                        <div class="tab-pane" id="about" role="tabpanel">
+                            <p>
+                                Lorem Ipsum is simply dummy text of the printing and
+                                typesetting industry. Lorem Ipsum has been the industry's
+                                standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a
+                                type specimen book. It has survived not only five centuries,
+                                but also the leap into electronic typesetting, remaining
+                                essentially unchanged.
+                            </p>
+                            <p>
+                                Lorem Ipsum is simply dummy text of the printing and
+                                typesetting industry. Lorem Ipsum has been the industry's
+                                standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <!-- Nav tabs card end-->
+        </div>
+        <!-- Page body end -->
+    </div>
+</div>
+<!-- Main-body end -->

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<BasketVM>
+@{
+    string color = "";
+    string size = "";
+    string category = "";
+
+
+    double subTotal = 0;
+    double tax = 0;
+    double total = 0;
+    @foreach (BasketVM basket in Model)
+    {
+        subTotal += basket.Count * basket.Price;
+        total += (basket.Price * basket.Count) + (basket.ExTax * basket.Count);
+    }
+}
+
+
+<div class="cart-header">
+    <h4 class="cart-title">Shopping Cart</h4>
+    <a href="~/assets/#" class="btn btn-dark btn-link btn-icon-right btn-close">
+        close<i class="d-icon-arrow-right"></i><span class="sr-only">Cart</span>
+    </a>
+</div>
+<div class="products scrollable">
+    @foreach (BasketVM basket in Model)
+    {
+        <div class="product product-cart">
+            <figure class="product-media">
+                <a href="product.html">
+                    <img src="~/assets/images/demos/demo23/products/@basket.Image" alt="product" width="80" height="88">
+                </a>
+                <a asp-controller="Basket" asp-action="DeleteBasket" asp-route-id="@basket.ProductId" asp-route-color="@basket.ColorId" asp-route-size="@basket.SizeId" class="deletebasket btn btn-link btn-close">
+                    <i class="fas fa-times"></i><span class="sr-only">Close</span>
+                </a>
+            </figure>
+            <div class="product-detail">
+                <a href="product.html" class="product-name">@basket.Name</a>
+                <div class="price-box">
+                    <span class="product-quantity">@basket.Count</span>
+                    <span class="product-price">$@basket.Price</span>
+                </div>
+            </div>
+
+        </div>
+    }
+</div>
+<!-- End of Products  -->
+<div class="cart-total">
+    <label>Subtotal:</label>
+    <span class="price">$@subTotal</span>
+</div>
+<!-- End of Cart Total -->
+<div class="cart-action">
+    <a asp-controller="Basket" asp-action="index" class="btn btn-dark btn-link">View Cart</a>
+    <a href="~/assets/checkout.html" class="btn btn-dark"><span>Go To Checkout</span></a>
+</div>
+<!-- End of Cart Action -->

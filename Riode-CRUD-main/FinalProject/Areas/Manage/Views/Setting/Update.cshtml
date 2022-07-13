@@ -1,0 +1,99 @@
+﻿@model Setting
+@{ ViewData["Title"] = "Edit Settings";
+    string controller = this.ViewContext.RouteData.Values["controller"].ToString(); }
+
+<!-- Main-body start -->
+<div class="main-body">
+    <div class="page-wrapper">
+        <!-- Page-header start -->
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-lg-9">
+                    <div class="page-header-title">
+                        <div class="d-inline">
+                            <h4>Settings</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item" style="float: left;">
+                                <a asp-area="manage" asp-controller="dashboard" asp-action="index"> <i class="feather icon-home"></i> </a>
+                            </li>
+                            <li class="breadcrumb-item" style="float: left;">
+                                <a asp-area="manage" asp-controller="setting" asp-action="index"> Settings </a>
+                            </li>
+                            <li class="breadcrumb-item" style="float: left;">
+                                <a href="#!">Edit</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page-header end -->
+
+        <div class="page-body">
+
+            <!-- Large table start -->
+            <div class="card">
+                <div class="card-header"></div>
+
+                <div class="card-block">
+
+                    <!-- Form -->
+                    <form class="row g-3" novalidate="" method="post" enctype="multipart/form-data" autocomplete="off">
+                        <div class="col-md-6">
+                            <label asp-for="Address" class="form-label">Address *</label>
+                            <input asp-for="Address" class="form-control" required>
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Email" class="form-label">Email *</label>
+                            <input asp-for="Email" class="form-control" required>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Email2" class="form-label">Additional Email (optional)</label>
+                            <input asp-for="Email2" class="form-control">
+                            <span asp-validation-for="Email2" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Phone" class="form-label">Phone *</label>
+                            <input asp-for="Phone" class="form-control" required>
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Fax" class="form-label">Fax *</label>
+                            <input asp-for="Fax" class="form-control" required>
+                            <span asp-validation-for="Fax" class="text-danger"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="LogoImageFile" class="form-label">Logo</label>
+                            <input asp-for="LogoImageFile" class="form-control" accept="image/png">
+                            <span asp-validation-for="LogoImageFile" class="text-danger"></span>
+                            <small class="form-text text-muted">
+                                <ul>
+                                    <li>Content type: "image/png"</li>
+                                    <li>Max size: 10 KB</li>
+                                </ul>
+                            </small>
+                            <div class="my-2">
+                                <p>Current Logo:</p>
+                                <img class="img-fluid" src="~/assets/images/demos/demo23/@Model.Logo" />
+                            </div>
+                        </div>
+
+                        <div class="col-12 d-grid gap-2 mt-3">
+                            <button class="btn btn-success" type="submit">Save changes</button>
+                            <a asp-area="manage" asp-controller="@controller" asp-action="index" class="btn btn-info">Go back</a>
+                        </div>
+                    </form>
+                    <!-- End Form -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+﻿@model Category
+
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Update Product</h1>
+            </div>
+        </div>
+        <div class="row justify-content-lg-center">
+            <div class="col-lg-8">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="form-check">
+                        <input asp-for="IsMain" class="form-check-input" placeholder="Enter email">
+                        <label asp-for="IsMain" class="form-check-label"></label>
+                        <span asp-validation-for="IsMain"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control" placeholder="Enter email">
+                        <span asp-validation-for="Name"></span>
+                    </div>
+                    <div class="form-group categoryParentInput">
+                        <label asp-for="ParentId"></label>
+                        <select class="form-control" asp-for="ParentId" asp-items="@new SelectList(ViewBag.MainCategory, nameof(Category.Id), nameof(Category.Name))">
+                            <option value="" selected>Choose...</option>
+                        </select>
+                        <span class="text-danger" asp-validation-for="ParentId"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-primary" asp-action="Index">Go To List</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Script{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+        $("#IsMain").prop("checked", false);
+        $(document).on("click", "#IsMain", function () {
+            if ($(this).prop("checked")) {
+                $(".categoryParentInput").addClass("d-none")
+                $(".categoryFileInput").removeClass("d-none")
+            } else {
+                $(".categoryParentInput").removeClass("d-none")
+                $(".categoryFileInput").addClass("d-none")
+            }
+        })
+    </script>
+}
